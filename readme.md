@@ -45,6 +45,8 @@ down to a single pixel.
         <img src="docs/demos/06-work-is-kept.png" alt="Work is kept demo"></a>
         <br><b>Work is kept</b> — Reload the page and the same artwork comes back from your browser storage.</td>
     </tr>
+</table>
+<table>
     <tr>
         <td width="33%" valign="top"><a href="docs/demos/07-creative-fx.png">
         <img src="docs/demos/07-creative-fx.png" alt="Creative FX demo"></a>
