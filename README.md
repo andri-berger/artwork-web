@@ -30,6 +30,11 @@ Run the same command again to update. Options: `--port 9000`, `--open`, `--quiet
 git clone https://github.com/andri-berger/artwork-web
 cd artwork-web
 python3 serve.py --open
+
+# for experimental html-to-canvas flag
+python3 serve.py &
+google-chrome --user-data-dir="$HOME/.cache/artwork-web-chrome" \
+  --enable-features=CanvasDrawElement http://localhost:8000/
 ```
 Edits show up on reload; the server sends `Cache-Control: no-cache`.
 
