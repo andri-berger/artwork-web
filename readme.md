@@ -23,51 +23,39 @@ down to a single pixel.
 <table>
     <tr>
         <td width="50%" valign="top"><a href="docs/demos/01-generate-art.png">
-        <img src="docs/demos/01-generate-art.png" alt="Generate art demo"></a>
-        <br><b>Generate art</b> — One click on GENERATE ART reads the sliders, rolls new seeds and draws a new artwork.</td>
+        <img src="docs/demos/01-generate-art.png" alt="Generate art demo"></a></td>
         <td width="50%" valign="top"><a href="docs/demos/02-seed-locks.png">
-        <img src="docs/demos/02-seed-locks.png" alt="Seed lock demo"></a>
-        <br><b>Seed lock</b> — L00 locks the seed of the L00 elements: they stay put while K00 and T00 keep changing.</td>
+        <img src="docs/demos/02-seed-locks.png" alt="Seed lock demo"></a></td>
     </tr>
     <tr>
         <td width="50%" valign="top"><a href="docs/demos/03-rooms.png">
-        <img src="docs/demos/03-rooms.png" alt="Rooms demo"></a>
-        <br><b>Rooms</b> — WALL picks another of 676 rooms, BLEND prints the artwork into the wall.</td>
+        <img src="docs/demos/03-rooms.png" alt="Rooms demo"></a></td>
         <td width="50%" valign="top"><a href="docs/demos/04-three-views.png">
-        <img src="docs/demos/04-three-views.png" alt="Three views demo"></a>
-        <br><b>Three views</b> — SHOT shows the room, SLOT the full-size picture with filters, both off the live HTML.</td>
+        <img src="docs/demos/04-three-views.png" alt="Three views demo"></a></td>
     </tr>
     <tr>
         <td width="50%" valign="top"><a href="docs/demos/05-element-randomizer.png">
-        <img src="docs/demos/05-element-randomizer.png" alt="Randomizer demo"></a>
-        <br><b>Randomizer</b> — The L00 panel sets how many elements there are, how chaotic they get, and more.</td>
+        <img src="docs/demos/05-element-randomizer.png" alt="Randomizer demo"></a></td>
         <td width="50%" valign="top"><a href="docs/demos/06-work-is-kept.png">
-        <img src="docs/demos/06-work-is-kept.png" alt="Work is kept demo"></a>
-        <br><b>Work is kept</b> — Reload the page and the same artwork comes back from your browser storage.</td>
+        <img src="docs/demos/06-work-is-kept.png" alt="Work is kept demo"></a></td>
     </tr>
 </table>
 <table>
     <tr>
         <td width="33%" valign="top"><a href="docs/demos/07-creative-fx.png">
-        <img src="docs/demos/07-creative-fx.png" alt="Creative FX demo"></a>
-        <br><b>Creative FX</b> — The first slider picks one of 13 PixiJS effects, the others tune it.</td>
+        <img src="docs/demos/07-creative-fx.png" alt="Creative FX demo"></a></td>
         <td width="33%" valign="top"><a href="docs/demos/08-granular-filter.png">
-        <img src="docs/demos/08-granular-filter.png" alt="Granular filter demo"></a>
-        <br><b>Granular filter</b> — Redraws the picture as blocks, strokes (F01) or circles (F00).</td>
+        <img src="docs/demos/08-granular-filter.png" alt="Granular filter demo"></a></td>
         <td width="33%" valign="top"><a href="docs/demos/09-painting-browser.png">
-        <img src="docs/demos/09-painting-browser.png" alt="Painting browser demo"></a>
-        <br><b>Painting browser</b> — Pick any of 3,236 paintings by 100 artists as the texture.</td>
+        <img src="docs/demos/09-painting-browser.png" alt="Painting browser demo"></a></td>
     </tr>
     <tr>
         <td width="33%" valign="top"><a href="docs/demos/10-own-images.png">
-        <img src="docs/demos/10-own-images.png" alt="Own images demo"></a>
-        <br><b>Own images</b> — LOAD your own pictures, GENERATE ART fills the elements with them.</td>
+        <img src="docs/demos/10-own-images.png" alt="Own images demo"></a></td>
         <td width="33%" valign="top"><a href="docs/demos/11-expert-mode.png">
-        <img src="docs/demos/11-expert-mode.png" alt="Expert Mode demo"></a>
-        <br><b>Expert Mode</b> — Type a value into the spreadsheet, the artwork follows right away.</td>
+        <img src="docs/demos/11-expert-mode.png" alt="Expert Mode demo"></a></td>
         <td width="33%" valign="top"><a href="docs/demos/12-download.png">
-        <img src="docs/demos/12-download.png" alt="Download demo"></a>
-        <br><b>Download</b> — DOWNLOAD renders again at 5× and saves a print-ready PNG.</td>
+        <img src="docs/demos/12-download.png" alt="Download demo"></a></td>
     </tr>
 </table>
 
