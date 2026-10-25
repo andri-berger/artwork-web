@@ -23,7 +23,7 @@ trap 'rm -rf "$TMP"' EXIT
 
 say "downloading artwork-web (~1.4 GB, this takes a while)..."
 curl -fL --progress-bar "$URL" | tar -xz -C "$TMP" --strip-components=1 || die "download failed"
-[ -f "$TMP/serve.py" ] || die "download incomplete: serve.py missing"
+[ -f "$TMP/readme.py" ] || die "download incomplete: readme.py missing"
 
 rm -rf "$DEST"
 mv "$TMP" "$DEST"
@@ -31,7 +31,7 @@ trap - EXIT
 
 cat > "$BIN/artwork-web" <<EOF
 #!/usr/bin/env sh
-exec python3 "$DEST/serve.py" "\$@"
+exec python3 "$DEST/readme.py" "\$@"
 EOF
 chmod +x "$BIN/artwork-web"
 

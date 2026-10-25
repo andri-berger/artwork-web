@@ -63,7 +63,7 @@ down to a single pixel.
 ## Installation
 artwork-web is a static frontend, but it still needs a web server: every asset
 path starts with `/` and the page uses `fetch`, a Web Worker and an iframe, so
-opening `index.html` as a file does not work. `serve.py` is a small server
+opening `index.html` as a file does not work. `readme.py` is a small server
 built on the Python standard library. It serves everything from the local
 files with no outside connection, and maps `/cd/…` to the local `cdn/` folder.
 
@@ -88,10 +88,10 @@ Run the same command again to update. Options: `--port 9000`, `--open`, `--quiet
 ```bash
 git clone https://github.com/andri-berger/artwork-web
 cd artwork-web
-python3 serve.py --open
+python3 readme.py --open
 
 # for experimental html-to-canvas flag
-python3 serve.py &
+python3 readme.py &
 google-chrome --user-data-dir="$HOME/.cache/artwork-web-chrome" \
   --enable-features=CanvasDrawElement http://localhost:8000/
 ```
@@ -242,7 +242,7 @@ latest one is drawn.
 
 ## File layout
 Everything is plain static files. Paths are absolute from the site root
-(`/=/`, `/@/`, ...), which is why it needs `serve.py`. The original
+(`/=/`, `/@/`, ...), which is why it needs `readme.py`. The original
 unminified sources are lost, so the files in `=/` are minified and are the
 source.
 
@@ -250,7 +250,7 @@ source.
 |---|---|
 | `index.html` | The main page: dashboard, tables and the iframe. |
 | `iframe.html` | The artwork page that gets rendered. |
-| `serve.py`, `install.sh` | Local server and the curl installer (see Installation). |
+| `readme.py`, `install.sh` | Local server and the curl installer (see Installation). |
 | `frame.js` | Service worker stub; only registers on print-artwork.com. |
 | `=/model-0.2.js` | Main page logic: buttons, sliders, tables, saving and the messages to the iframe. |
 | `=/model-0.0.js`, `=/model-0.1.js` | Data: help texts, table layouts and dropdown values, the painting catalog, the wall list. |
