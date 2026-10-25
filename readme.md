@@ -1,5 +1,5 @@
 # Artwork-WEB
-Artwork and layout generator that runs as a static frontend in your browser.
+Remix the masters into new artwork, hang it on a virtual wall, and download it.
 
 Artwork-WEB is the browser version of
 [artwork-tui](https://github.com/andri-berger/artwork-tui). It generates
@@ -122,11 +122,24 @@ Edits show up on reload; the server sends `Cache-Control: no-cache`.
 #### Server options
 `artwork-web` and `python3 readme.py` take the same options:
 
-| Option | What it does |
-|---|---|
-| `--open` | Opens the page in your default browser. |
-| `-p`, `--port PORT` | Port to start from (default `8000`, or the `PORT` environment variable). If it is taken, the next free port up to +19 is used. |
-| `-q`, `--quiet` | Don't log every request. |
+<table>
+    <tr>
+        <th align="left">Option</th>
+        <th align="left">What it does</th>
+    </tr>
+    <tr>
+        <td><kbd>--open</kbd></td>
+        <td>Opens the page in your default browser.</td>
+    </tr>
+    <tr>
+        <td><kbd>-p, --port PORT</kbd></td>
+        <td>Port to start from (default <code>8000</code>, or the <code>PORT</code> environment variable). If it is taken, the next free port up to +19 is used.</td>
+    </tr>
+    <tr>
+        <td><kbd>-q, --quiet</kbd></td>
+        <td>Don't log every request.</td>
+    </tr>
+</table>
 
 The server prints the URL it actually uses; stop it with Ctrl+C.
 
@@ -153,13 +166,32 @@ The result looks the same either way; the app falls back to `html-to-image`
 by itself whenever native capture isn't available or fails.
 
 #### Troubleshooting
-| Symptom | Cause and fix |
-|---|---|
-| Dashboard shows, but the canvas stays empty | You opened `127.0.0.1` (or another hostname). Use `http://localhost:PORT`. |
-| Blank page or missing files | You opened `index.html` as a file. Start the server and use the URL it prints. |
-| My artwork is gone after a restart | Browser storage is per origin, and the port is part of it. If the server moved to another port (because 8000 was taken), your saved work is still under the old port. Free that port or pass `--port` to get it back. |
-| `artwork-web: command not found` | `~/.local/bin` isn't on your `PATH`, see above. |
-| Want a clean start | Clear the site data for `localhost` in your browser. |
+<table>
+    <tr>
+        <th align="left">Symptom</th>
+        <th align="left">Cause and fix</th>
+    </tr>
+    <tr>
+        <td><kbd>Dashboard shows, but the canvas stays empty</kbd></td>
+        <td>You opened <code>127.0.0.1</code> (or another hostname). Use <code>http://localhost:PORT</code>.</td>
+    </tr>
+    <tr>
+        <td><kbd>Blank page or missing files</kbd></td>
+        <td>You opened <code>index.html</code> as a file. Start the server and use the URL it prints.</td>
+    </tr>
+    <tr>
+        <td><kbd>My artwork is gone after a restart</kbd></td>
+        <td>Browser storage is per origin, and the port is part of it. If the server moved to another port (because 8000 was taken), your saved work is still under the old port. Free that port or pass <code>--port</code> to get it back.</td>
+    </tr>
+    <tr>
+        <td><kbd>artwork-web: command not found</kbd></td>
+        <td><code>~/.local/bin</code> isn't on your <code>PATH</code>, see above.</td>
+    </tr>
+    <tr>
+        <td><kbd>Want a clean start</kbd></td>
+        <td>Clear the site data for <code>localhost</code> in your browser.</td>
+    </tr>
+</table>
 
 ## How it works in one minute
 The screen has two halves. The **dashboard** (buttons, sliders and, in Expert
@@ -184,17 +216,48 @@ Hover over any dashboard button or slider while the info screen (**i**) is on
 and the app shows a short help text for it.
 
 ### Top buttons
-| Button | What it does |
-|---|---|
-| **GENERATE ART** | Creates a new random artwork in one click. It reads the slider settings, rolls new seeds (unless a seed is locked) and refills the tables. |
-| **SHOT** | Shot Mode. Shows the artwork as a rendered picture in a mockup room, with a wall behind it. Padding X/Y and canvas zoom only apply here. |
-| **BLEND** | Blends the artwork into the wall (CSS `multiply`), as if it were printed on it. |
-| **WALL** | Picks another room. There are 676 walls; the app prefers ones whose shape matches your window. |
-| **SLOT** | Slot Mode. Shows the rendered picture full size, without the room. The best view for working on the FX filters. |
-| **L00 / K00 / T00** (checkboxes) | Lock the random seed of that element family, so GENERATE ART keeps it and only changes the rest. |
-| **F00** | Circle Mode: the Granular filter draws circles instead of blocks (needs SLOT on). |
-| **F01** | Stroke Mode: the Granular filter draws strokes instead of filled blocks (needs SLOT on). |
-| **F02** | Vector Mode (PNG to SVG). Currently inert: it relied on a server-side converter that isn't part of this frontend. |
+<table>
+    <tr>
+        <th align="left">Button</th>
+        <th align="left">What it does</th>
+    </tr>
+    <tr>
+        <td><kbd>GENERATE ART</kbd></td>
+        <td>Creates a new random artwork in one click. It reads the slider settings, rolls new seeds (unless a seed is locked) and refills the tables.</td>
+    </tr>
+    <tr>
+        <td><kbd>SHOT</kbd></td>
+        <td>Shot Mode. Shows the artwork as a rendered picture in a mockup room, with a wall behind it. Padding X/Y and canvas zoom only apply here.</td>
+    </tr>
+    <tr>
+        <td><kbd>BLEND</kbd></td>
+        <td>Blends the artwork into the wall (CSS <code>multiply</code>), as if it were printed on it.</td>
+    </tr>
+    <tr>
+        <td><kbd>WALL</kbd></td>
+        <td>Picks another room. There are 676 walls; the app prefers ones whose shape matches your window.</td>
+    </tr>
+    <tr>
+        <td><kbd>SLOT</kbd></td>
+        <td>Slot Mode. Shows the rendered picture full size, without the room. The best view for working on the FX filters.</td>
+    </tr>
+    <tr>
+        <td><kbd>L00 / K00 / T00 (checkboxes)</kbd></td>
+        <td>Lock the random seed of that element family, so GENERATE ART keeps it and only changes the rest.</td>
+    </tr>
+    <tr>
+        <td><kbd>F00</kbd></td>
+        <td>Circle Mode: the Granular filter draws circles instead of blocks (needs SLOT on).</td>
+    </tr>
+    <tr>
+        <td><kbd>F01</kbd></td>
+        <td>Stroke Mode: the Granular filter draws strokes instead of filled blocks (needs SLOT on).</td>
+    </tr>
+    <tr>
+        <td><kbd>F02</kbd></td>
+        <td>Vector Mode (PNG to SVG). Currently inert: it relied on a server-side converter that isn't part of this frontend.</td>
+    </tr>
+</table>
 
 With both SHOT and SLOT off you get the **HTML view**: the live artwork page
 itself, not a picture of it. This is the fastest view while editing, but the
@@ -205,24 +268,63 @@ The two radio rows pick which slider panel you see. In every panel the first
 slider scrolls through the panel's other sliders, two at a time. Drag a slider's
 handle to change its value.
 
-| Panel | What it controls |
-|---|---|
-| **SLOT** (first row) | Global settings: dashboard colors, padding, label size, stacking order, rotations, container width and height, morph and wave (SVG displacement) for everything, and two color palettes (dual colors per family, plus a 6-slot global palette). |
-| **L00 / K00 / T00** | The randomizer for one element family: how many elements, how chaotic, average position and spread, how much of the painting fills them (Image A/B), rotation, shift, size, morph, wave and color intensity. |
-| **SLOT** (second row) | Creative filter (PixiJS). The first slider picks one of 13 effects: Ascii, Noise, Dot, CRT, Simplex Noise, Glow, Kawase Blur, Advanced Bloom, Zoom Blur, Twist, Bulge/Pinch, Glitch, Reflection. The others tune it. |
-| **F00** | Granular filter: block size, spacing, random offsets and stroke thickness. It redraws the picture as many small blocks, circles or strokes. |
-| **F01** | Granular shapes for Circle and Stroke Mode: start, end, angle, curves and randomness of each shape. |
-| **F02** | Glamour filter (oil painting, sketch, cartoon) and Vector Mode settings. Inert, like the F02 button. |
+<table>
+    <tr>
+        <th align="left">Panel</th>
+        <th align="left">What it controls</th>
+    </tr>
+    <tr>
+        <td><kbd>SLOT (first row)</kbd></td>
+        <td>Global settings: dashboard colors, padding, label size, stacking order, rotations, container width and height, morph and wave (SVG displacement) for everything, and two color palettes (dual colors per family, plus a 6-slot global palette).</td>
+    </tr>
+    <tr>
+        <td><kbd>L00 / K00 / T00</kbd></td>
+        <td>The randomizer for one element family: how many elements, how chaotic, average position and spread, how much of the painting fills them (Image A/B), rotation, shift, size, morph, wave and color intensity.</td>
+    </tr>
+    <tr>
+        <td><kbd>SLOT (second row)</kbd></td>
+        <td>Creative filter (PixiJS). The first slider picks one of 13 effects: Ascii, Noise, Dot, CRT, Simplex Noise, Glow, Kawase Blur, Advanced Bloom, Zoom Blur, Twist, Bulge/Pinch, Glitch, Reflection. The others tune it.</td>
+    </tr>
+    <tr>
+        <td><kbd>F00</kbd></td>
+        <td>Granular filter: block size, spacing, random offsets and stroke thickness. It redraws the picture as many small blocks, circles or strokes.</td>
+    </tr>
+    <tr>
+        <td><kbd>F01</kbd></td>
+        <td>Granular shapes for Circle and Stroke Mode: start, end, angle, curves and randomness of each shape.</td>
+    </tr>
+    <tr>
+        <td><kbd>F02</kbd></td>
+        <td>Glamour filter (oil painting, sketch, cartoon) and Vector Mode settings. Inert, like the F02 button.</td>
+    </tr>
+</table>
 
 ### Expert Mode: the spreadsheet
 The last radio row opens the tables (Handsontable). The label shows where you
 are: **Hidden**, **Format** or **Styling**.
 
-| Tab | Rows × columns | What's in it |
-|---|---|---|
-| **1 · Format** | 245 × 103 | The foundation. One column per element and 18 layout rows each: width, height, alignment, order, offset, margin, padding and which frame an element sits in. |
-| **2 · Styling** | 1,304 × 43 | One row per element: position, blur, 3D axes, outline, corner angles, slide, scale, rotation, origin and more. |
-| **3 · Styling & Colors** | 1,304 × 42 | One row per element: shape, shade, border and outline fills, gradients, display, blend, drop shadow, brightness, opacity, grayscale, saturation, contrast and image shift. |
+<table>
+    <tr>
+        <th align="left">Tab</th>
+        <th align="left">Rows × columns</th>
+        <th align="left">What's in it</th>
+    </tr>
+    <tr>
+        <td><kbd>1 · Format</kbd></td>
+        <td>245 × 103</td>
+        <td>The foundation. One column per element and 18 layout rows each: width, height, alignment, order, offset, margin, padding and which frame an element sits in.</td>
+    </tr>
+    <tr>
+        <td><kbd>2 · Styling</kbd></td>
+        <td>1,304 × 43</td>
+        <td>One row per element: position, blur, 3D axes, outline, corner angles, slide, scale, rotation, origin and more.</td>
+    </tr>
+    <tr>
+        <td><kbd>3 · Styling &amp; Colors</kbd></td>
+        <td>1,304 × 42</td>
+        <td>One row per element: shape, shade, border and outline fills, gradients, display, blend, drop shadow, brightness, opacity, grayscale, saturation, contrast and image shift.</td>
+    </tr>
+</table>
 
 Cells outside an element's range are read-only, dropdown cells only accept their listed values, and
 the placeholder in an empty cell tells you the expected unit (`px`, `%`,
@@ -231,14 +333,36 @@ the MDN docs for that CSS property. Undo, redo, copy, paste and cut work as
 usual, and every edit redraws the artwork right away.
 
 ### Bottom buttons
-| Button | What it does |
-|---|---|
-| **DOWNLOAD** | Renders the artwork again at 5× screen resolution and saves it as `<timestamp>.png`. Ctrl+Alt+Meta inside the canvas does the same. |
-| **Painting browser** (frame icon) | Browse 3,236 paintings by 100 artists (the `cdn/` folder). The painting you pick becomes the texture inside the elements. Use ↑/↓ for the artist and the arrow pair for the painting; the painting's title links to the full image. |
-| **?** | Use your own images. **LOAD** picks up to 100 image files; they are kept in IndexedDB and replace the paintings in the browser. Cancel the picker to go back to the paintings. |
-| **i** | Info screen with a short tour of the app, and hover help for every control. |
-| Last two buttons | Move the dashboard up/down and left/right. |
-| **X / GO!** | In the browser: close it, or jump to the next artist. |
+<table>
+    <tr>
+        <th align="left">Button</th>
+        <th align="left">What it does</th>
+    </tr>
+    <tr>
+        <td><kbd>DOWNLOAD</kbd></td>
+        <td>Renders the artwork again at 5× screen resolution and saves it as <code>&lt;timestamp&gt;.png</code>. Ctrl+Alt+Meta inside the canvas does the same.</td>
+    </tr>
+    <tr>
+        <td><kbd>Painting browser (frame icon)</kbd></td>
+        <td>Browse 3,236 paintings by 100 artists (the <code>cdn/</code> folder). The painting you pick becomes the texture inside the elements. Use ↑/↓ for the artist and the arrow pair for the painting; the painting's title links to the full image.</td>
+    </tr>
+    <tr>
+        <td><kbd>?</kbd></td>
+        <td>Use your own images. <b>LOAD</b> picks up to 100 image files; they are kept in IndexedDB and replace the paintings in the browser. Cancel the picker to go back to the paintings.</td>
+    </tr>
+    <tr>
+        <td><kbd>i</kbd></td>
+        <td>Info screen with a short tour of the app, and hover help for every control.</td>
+    </tr>
+    <tr>
+        <td><kbd>Last two buttons</kbd></td>
+        <td>Move the dashboard up/down and left/right.</td>
+    </tr>
+    <tr>
+        <td><kbd>X / GO!</kbd></td>
+        <td>In the browser: close it, or jump to the next artist.</td>
+    </tr>
+</table>
 
 ### Where your work is saved
 Everything stays in your browser, for this site only:
@@ -314,37 +438,130 @@ Everything is plain static files. Paths are absolute from the site root
 unminified sources are lost, so the files in `=/` are minified and are the
 source.
 
-| Path | What's in it |
-|---|---|
-| `index.html` | The main page: dashboard, tables and the iframe. |
-| `iframe.html` | The artwork page that gets rendered. |
-| `readme.py`, `install.sh` | Local server and the curl installer (see Installation). |
-| `frame.js` | Service worker stub; only registers on print-artwork.com. |
-| `=/model-0.2.js` | Main page logic: buttons, sliders, tables, saving and the messages to the iframe. |
-| `=/model-0.0.js`, `=/model-0.1.js` | Data: help texts, table layouts and dropdown values, the painting catalog, the wall list. |
-| `=/script-0.0.js` | iframe renderer: capture, PixiJS filters, worker, display and download. |
-| `=/script-0.1.js` | Artwork generator: turns the tables into SVG, HTML and CSS. |
-| `=/script-0.2.js` | Web Worker for the Granular filter. |
-| `=/style-0.1.css`, `=/style-0.0.css` | Styles for the main page and the iframe. |
-| `=/bundle/` | Blank placeholder images. |
-| `@/` | Third-party libraries (see below). `@/bundle/` holds the Montserrat font, `@/bundles/` the app icons. |
-| `cdn/` | 3,236 paintings by 100 artists (AVIF), one folder per artist. Served as `/cd/` too. |
-| `fonts/` | Full-size wall photos for SHOT/WALL. Despite the name, there are no fonts in here. |
-| `frame/` | Small previews of the same walls, shown while the full one loads. |
-| `cdns/` | Product mockup photos from the former print shop. |
+<table>
+    <tr>
+        <th align="left">Path</th>
+        <th align="left">What's in it</th>
+    </tr>
+    <tr>
+        <td><kbd>index.html</kbd></td>
+        <td>The main page: dashboard, tables and the iframe.</td>
+    </tr>
+    <tr>
+        <td><kbd>iframe.html</kbd></td>
+        <td>The artwork page that gets rendered.</td>
+    </tr>
+    <tr>
+        <td><kbd>readme.py, install.sh</kbd></td>
+        <td>Local server and the curl installer (see Installation).</td>
+    </tr>
+    <tr>
+        <td><kbd>frame.js</kbd></td>
+        <td>Service worker stub; only registers on print-artwork.com.</td>
+    </tr>
+    <tr>
+        <td><kbd>=/model-0.2.js</kbd></td>
+        <td>Main page logic: buttons, sliders, tables, saving and the messages to the iframe.</td>
+    </tr>
+    <tr>
+        <td><kbd>=/model-0.0.js, =/model-0.1.js</kbd></td>
+        <td>Data: help texts, table layouts and dropdown values, the painting catalog, the wall list.</td>
+    </tr>
+    <tr>
+        <td><kbd>=/script-0.0.js</kbd></td>
+        <td>iframe renderer: capture, PixiJS filters, worker, display and download.</td>
+    </tr>
+    <tr>
+        <td><kbd>=/script-0.1.js</kbd></td>
+        <td>Artwork generator: turns the tables into SVG, HTML and CSS.</td>
+    </tr>
+    <tr>
+        <td><kbd>=/script-0.2.js</kbd></td>
+        <td>Web Worker for the Granular filter.</td>
+    </tr>
+    <tr>
+        <td><kbd>=/style-0.1.css, =/style-0.0.css</kbd></td>
+        <td>Styles for the main page and the iframe.</td>
+    </tr>
+    <tr>
+        <td><kbd>=/bundle/</kbd></td>
+        <td>Blank placeholder images.</td>
+    </tr>
+    <tr>
+        <td><kbd>@/</kbd></td>
+        <td>Third-party libraries (see below). <code>@/bundle/</code> holds the Montserrat font, <code>@/bundles/</code> the app icons.</td>
+    </tr>
+    <tr>
+        <td><kbd>cdn/</kbd></td>
+        <td>3,236 paintings by 100 artists (AVIF), one folder per artist. Served as <code>/cd/</code> too.</td>
+    </tr>
+    <tr>
+        <td><kbd>fonts/</kbd></td>
+        <td>Full-size wall photos for SHOT/WALL. Despite the name, there are no fonts in here.</td>
+    </tr>
+    <tr>
+        <td><kbd>frame/</kbd></td>
+        <td>Small previews of the same walls, shown while the full one loads.</td>
+    </tr>
+    <tr>
+        <td><kbd>cdns/</kbd></td>
+        <td>Product mockup photos from the former print shop.</td>
+    </tr>
+</table>
 
 ## Built with
 These libraries ship in `@/`, unchanged:
 
-| Library | Version | Used for | License |
-|---|---|---|---|
-| [Handsontable](https://github.com/handsontable/handsontable) | 12.0.0 | The spreadsheet in Expert Mode | Proprietary, used under its free non-commercial license |
-| [PixiJS](https://github.com/pixijs/pixijs) | 8.10.1 | WebGL rendering (`@/pixi-filter-8.10.1.js`) | MIT |
-| [pixi-filters](https://github.com/pixijs/filters) | 6.1.3 | The 13 Creative filters | MIT |
-| [html-to-image](https://github.com/bubkoo/html-to-image) | 1.11.13 | Capture fallback when HTML-in-Canvas isn't available | MIT |
-| [d3-random](https://github.com/d3/d3-random) | 3.0.1 | Seeded random numbers, so a seed always gives the same artwork | ISC |
-| [Montserrat](https://github.com/JulietaUla/Montserrat) | 9.000 | Dashboard font | SIL OFL 1.1 |
-| [HTML-in-Canvas](https://github.com/WICG/html-in-canvas) | (browser API) | Native capture of the artwork page | — |
+<table>
+    <tr>
+        <th align="left">Library</th>
+        <th align="left">Version</th>
+        <th align="left">Used for</th>
+        <th align="left">License</th>
+    </tr>
+    <tr>
+        <td><kbd><a href="https://github.com/handsontable/handsontable">Handsontable</a></kbd></td>
+        <td>12.0.0</td>
+        <td>The spreadsheet in Expert Mode</td>
+        <td>Proprietary, used under its free non-commercial license</td>
+    </tr>
+    <tr>
+        <td><kbd><a href="https://github.com/pixijs/pixijs">PixiJS</a></kbd></td>
+        <td>8.10.1</td>
+        <td>WebGL rendering (<code>@/pixi-filter-8.10.1.js</code>)</td>
+        <td>MIT</td>
+    </tr>
+    <tr>
+        <td><kbd><a href="https://github.com/pixijs/filters">pixi-filters</a></kbd></td>
+        <td>6.1.3</td>
+        <td>The 13 Creative filters</td>
+        <td>MIT</td>
+    </tr>
+    <tr>
+        <td><kbd><a href="https://github.com/bubkoo/html-to-image">html-to-image</a></kbd></td>
+        <td>1.11.13</td>
+        <td>Capture fallback when HTML-in-Canvas isn't available</td>
+        <td>MIT</td>
+    </tr>
+    <tr>
+        <td><kbd><a href="https://github.com/d3/d3-random">d3-random</a></kbd></td>
+        <td>3.0.1</td>
+        <td>Seeded random numbers, so a seed always gives the same artwork</td>
+        <td>ISC</td>
+    </tr>
+    <tr>
+        <td><kbd><a href="https://github.com/JulietaUla/Montserrat">Montserrat</a></kbd></td>
+        <td>9.000</td>
+        <td>Dashboard font</td>
+        <td>SIL OFL 1.1</td>
+    </tr>
+    <tr>
+        <td><kbd><a href="https://github.com/WICG/html-in-canvas">HTML-in-Canvas</a></kbd></td>
+        <td>(browser API)</td>
+        <td>Native capture of the artwork page</td>
+        <td>—</td>
+    </tr>
+</table>
 
 ## License
 This project's own code is licensed under the GNU General Public License v3.0,
