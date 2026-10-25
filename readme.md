@@ -18,15 +18,13 @@ down to a single pixel.
 - **Print-ready output.** DOWNLOAD renders the artwork again at 5× screen
   resolution and saves it as a PNG.
 
-**Quick start** (macOS/Linux, needs `python3` 3.7+, ~1.4 GB download):
+**Quick start** (macOS/Linux, needs `python3` 3.7+):
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/andri-berger/artwork-web/main/install.sh | sh
 artwork-web --open
 ```
 
-Then click **GENERATE ART**. Options, updating and troubleshooting are under
-[Installation](#installation).
 
 ## Demos
 
@@ -364,73 +362,6 @@ usual, and every edit redraws the artwork right away.
     </tr>
 </table>
 
-### Where your work is saved
-Everything stays in your browser, for this site only:
-
-- `localStorage` key `IC` holds the UI: slider values, toggles, the open
-  panel, the wall and the painting position.
-- `localStorage` key `ID` holds seeds and palette colors, and `IB` remembers
-  which painting you last used per artist.
-- IndexedDB database `IB` holds the spreadsheet edits and your uploaded
-  images.
-
-On load the app reads all of this back and redraws the same artwork. A
-damaged `localStorage` entry is dropped instead of breaking the app. To start
-fresh, clear the site data for `localhost` in your browser.
-
-Browser storage is tied to the origin, and the port is part of it:
-`localhost:8000` and `localhost:8001` have separate saved work. Updating or
-reinstalling the files does not touch it.
-
-## The full trace
-What happens between typing a value into a cell and seeing it on the canvas:
-
-```mermaid
-flowchart TD
-    A["Spreadsheet edit or slider<br/>(main page, =/model-0.2.js)"] -->|"save"| S[("localStorage + IndexedDB")]
-    A -->|"postMessage: only the changed cells"| B["iframe (iframe.html, =/script-0.0.js)<br/>merges the change"]
-    B --> C["Artwork generator (=/script-0.1.js)<br/>rebuilds the SVG filters, the element HTML and 2 style sheets"]
-    C --> D{"Capture the HTML as a picture"}
-    D -->|"Chrome with HTML-in-Canvas"| E["native drawElementImage"]
-    D -->|"otherwise"| F["html-to-image (loaded on demand)"]
-    E --> G["PixiJS + pixi-filters<br/>Creative filter (WebGL)"]
-    F --> G
-    G --> H["Web Worker (=/script-0.2.js)<br/>Granular filter: blocks, circles, strokes"]
-    H --> I["Canvas on screen (3×)"]
-    H --> J["DOWNLOAD: same steps at 5× → PNG"]
-```
-
-Step by step, in plain words:
-
-1. **You change something.** A cell edit, a slider or GENERATE ART on the main
-   page turns into a small list of changed values. The main page saves it
-   (`localStorage` and IndexedDB) and sends only that change to the iframe with
-   `postMessage`. The iframe only listens on `localhost`, which is why
-   `127.0.0.1` doesn't work.
-2. **The iframe rebuilds the artwork page.** It merges the change into its
-   copy of the tables, and the generator writes new HTML: an `<svg>` with
-   morph and wave filters, the `<div>` tree of L00/K00/T00 elements and two
-   `<style>` sheets. Depending on which table changed, only the affected parts
-   are rewritten. The artwork is then centered.
-3. **It takes a picture of that page.** Where the browser supports
-   HTML-in-Canvas (`drawElementImage`), the page is drawn natively into a
-   canvas, after waiting for images and fonts. Otherwise, or if that fails,
-   times out or comes out blank, it loads `html-to-image` and uses that
-   instead. Both give the same result (they differ in under 0.15% of pixels).
-   The picture is taken at 3× for the screen and 5× for DOWNLOAD, then cropped
-   to the artwork plus padding.
-4. **WebGL filters.** If a Creative filter is chosen, PixiJS puts the picture
-   on a sprite, applies the filter and reads the result back.
-5. **Pixel filter.** If Granular settings are on, a Web Worker repaints the
-   picture as blocks, circles or strokes on an OffscreenCanvas, sampling the
-   color underneath each one.
-6. **Show or save.** The final picture goes onto the canvas you see (SHOT or
-   SLOT), or into a PNG file (DOWNLOAD).
-
-Each stage keeps its result. If you only move a filter slider, the app reruns
-the stages from that filter on and reuses the earlier picture, which keeps
-dragging smooth. Captures that pile up while you drag are merged, so only the
-latest one is drawn.
 
 ## File layout
 Everything is plain static files. Paths are absolute from the site root
