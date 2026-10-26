@@ -11,7 +11,8 @@ down to a single pixel.
 
 - **No backend.** It's static files plus a few frontend libraries. Nothing is
   uploaded and nothing is fetched from the internet; the local setup never
-  talks to print-artwork.com.
+  talks to print-artwork.com. The only server-side part is optional: the F02
+  OpenCV effects run inside the local `readme.py`.
 - **Your work is kept.** Sliders, tables, chosen painting and uploaded images
   are saved in your browser (`localStorage` and IndexedDB) and come back after
   a refresh.
@@ -77,14 +78,26 @@ files only, never connects anywhere, and maps `/cd/…` to the local `cdn/`
 folder. It listens on `127.0.0.1` only, so it is not reachable from other
 machines on your network.
 
+If [OpenCV](https://github.com/opencv/opencv) is installed, `readme.py` also
+runs the **F02** photo effects (see [Slider panels](#slider-panels)): the page
+sends the rendered picture to `http://localhost:PORT/opencv` and gets the
+processed picture back, all on your machine. OpenCV is optional; without it
+the F02 button is greyed out and everything else works the same.
+
 **Requirements:** macOS or Linux (on Windows, use WSL), `python3` 3.7+, and a
 current desktop browser with WebGL. The curl install also needs `curl` and
-`tar`; a clone needs `git`.
+`tar`; a clone needs `git`. For the optional OpenCV effects, the Python `venv`
+module (on Debian/Ubuntu: `sudo apt install python3-venv`).
 
 #### Generic install (curl)
 Downloads the full repo (~1.4 GB, the paintings and wall photos are part of
 it) to `~/.local/share/artwork-web` (or `$XDG_DATA_HOME/artwork-web`) and adds
-an `artwork-web` launcher to `~/.local/bin`. Nothing else on your system is
+an `artwork-web` launcher to `~/.local/bin`. It then installs OpenCV
+(`opencv-python-headless`, about 230 MB on disk) into a virtual environment
+inside the install folder, `.venv/`, which `readme.py` picks up by itself. If
+that step fails (no `venv` module, no network to PyPI), the installer says so
+and finishes anyway, just without the F02 effects. To skip it, pipe into
+`ARTWORK_WEB_OPENCV=0 sh` instead of `sh`. Nothing else on your system is
 touched. As always with curl-into-sh: the script is short and readable, take a
 look at [`install.sh`](install.sh) before you run it.
 
@@ -116,6 +129,16 @@ python3 readme.py --open
 ```
 
 Edits show up on reload; the server sends `Cache-Control: no-cache`.
+
+To get the F02 OpenCV effects in a clone, create the same virtual environment
+the installer makes; `readme.py` uses `./.venv` automatically when it exists:
+
+```bash
+python3 -m venv .venv
+.venv/bin/pip install opencv-python-headless
+```
+
+On startup the server prints whether OpenCV was found.
 
 #### Server options
 `artwork-web` and `python3 readme.py` take the same options:
@@ -180,6 +203,10 @@ by itself whenever native capture isn't available or fails.
     <tr>
         <td><kbd>My artwork is gone after a restart</kbd></td>
         <td>Browser storage is per origin, and the port is part of it. If the server moved to another port (because 8000 was taken), your saved work is still under the old port. Free that port or pass <code>--port</code> to get it back.</td>
+    </tr>
+    <tr>
+        <td><kbd>F02 (second row) is greyed out</kbd></td>
+        <td>The server has no OpenCV. Rerun the installer, or in a clone create <code>.venv</code> as shown above, then restart the server. Its startup line says <code>OpenCV …: F02 effects on</code> when it worked.</td>
     </tr>
     <tr>
         <td><kbd>artwork-web: command not found</kbd></td>
@@ -293,7 +320,7 @@ handle to change its value.
     </tr>
     <tr>
         <td><kbd>F02</kbd></td>
-        <td>Glamour filter (oil painting, sketch, cartoon) and Vector Mode settings. Inert, like the F02 button.</td>
+        <td>OpenCV filter, run by <code>readme.py</code> (needs OpenCV, see Installation). The first slider picks one of 6 effects: Invert, Edges, Stylization, Detail Enhance, Pencil Sketch, Cartoon. The next three tune it, the last one (Fade) blends back to the original. It is applied last, after the Creative and Granular filters, and only when you let go of a slider. Stylization is slow on big renders such as DOWNLOAD.</td>
     </tr>
 </table>
 
@@ -384,7 +411,7 @@ source.
     </tr>
     <tr>
         <td><kbd>readme.py, install.sh</kbd></td>
-        <td>Local server and the curl installer (see Installation).</td>
+        <td>Local server (with the optional OpenCV effects) and the curl installer (see Installation).</td>
     </tr>
     <tr>
         <td><kbd>frame.js</kbd></td>
@@ -400,7 +427,7 @@ source.
     </tr>
     <tr>
         <td><kbd>=/script-0.0.js</kbd></td>
-        <td>iframe renderer: capture, PixiJS filters, worker, display and download.</td>
+        <td>iframe renderer: capture, PixiJS filters, worker, OpenCV request, display and download.</td>
     </tr>
     <tr>
         <td><kbd>=/script-0.1.js</kbd></td>
@@ -441,7 +468,7 @@ source.
 </table>
 
 ## Built with
-These libraries ship in `@/`, unchanged:
+These libraries ship in `@/`, unchanged (except OpenCV, which the installer gets with pip):
 
 <table>
     <tr>
@@ -467,6 +494,12 @@ These libraries ship in `@/`, unchanged:
         <td>6.1.3</td>
         <td>The 13 Creative filters</td>
         <td>MIT</td>
+    </tr>
+    <tr>
+        <td><kbd><a href="https://github.com/opencv/opencv">OpenCV</a></kbd></td>
+        <td>4.x / 5.x (optional, installed with pip, not shipped)</td>
+        <td>The F02 effects in <code>readme.py</code></td>
+        <td>Apache 2.0</td>
     </tr>
     <tr>
         <td><kbd><a href="https://github.com/bubkoo/html-to-image">html-to-image</a></kbd></td>

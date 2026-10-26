@@ -1,5 +1,5 @@
 #!/usr/bin/env sh
-# artwork-web installer: downloads the repo (~1.4 GB) and adds an `artwork-web` launcher
+# artwork-web installer: downloads the repo (~1.4 GB), optionally OpenCV, and adds an `artwork-web` launcher
 # usage: curl -fsSL https://raw.githubusercontent.com/andri-berger/artwork-web/main/install.sh | sh
 set -eu
 
@@ -28,6 +28,24 @@ curl -fL --progress-bar "$URL" | tar -xz -C "$TMP" --strip-components=1 || die "
 rm -rf "$DEST"
 mv "$TMP" "$DEST"
 trap - EXIT
+
+# Optional: OpenCV for the F02 effects, in a venv next to readme.py (which uses it
+# by itself). Skip with ARTWORK_WEB_OPENCV=0; without it only F02 stays off.
+if [ "${ARTWORK_WEB_OPENCV:-1}" != 0 ]; then
+    say "installing OpenCV for the F02 effects (optional, about 230 MB on disk)..."
+    VENV="$DEST/.venv"
+    if python3 -m venv "$VENV" >/dev/null 2>&1 \
+        && "$VENV/bin/python3" -m pip install -q --disable-pip-version-check opencv-python-headless; then
+        say "OpenCV installed"
+    elif has uv && uv venv -q --allow-existing "$VENV" \
+        && uv pip install -q --python "$VENV/bin/python3" opencv-python-headless; then
+        say "OpenCV installed (via uv)"
+    else
+        rm -rf "$VENV"
+        say "note: OpenCV not installed (needs the python3 venv module, e.g. apt install python3-venv)."
+        say "      Everything else works; rerun the installer to add it later."
+    fi
+fi
 
 cat > "$BIN/artwork-web" <<EOF
 #!/usr/bin/env sh
