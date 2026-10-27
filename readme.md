@@ -82,7 +82,7 @@ If [OpenCV](https://github.com/opencv/opencv) is installed, `readme.py` also
 runs the **F02** photo effects (see [Slider panels](#slider-panels)): the page
 sends the rendered picture to `http://localhost:PORT/opencv` and gets the
 processed picture back, all on your machine. OpenCV is optional; without it
-the F02 button is greyed out and everything else works the same.
+the two F02 buttons are greyed out and everything else works the same.
 
 **Requirements:** macOS or Linux (on Windows, use WSL), `python3` 3.7+, and a
 current desktop browser with WebGL. The curl install also needs `curl` and
@@ -205,7 +205,7 @@ by itself whenever native capture isn't available or fails.
         <td>Browser storage is per origin, and the port is part of it. If the server moved to another port (because 8000 was taken), your saved work is still under the old port. Free that port or pass <code>--port</code> to get it back.</td>
     </tr>
     <tr>
-        <td><kbd>F02 (second row) is greyed out</kbd></td>
+        <td><kbd>F02 buttons are greyed out</kbd></td>
         <td>The server has no OpenCV. Rerun the installer, or in a clone create <code>.venv</code> as shown above, then restart the server. Its startup line says <code>OpenCV …: F02 effects on</code> when it worked.</td>
     </tr>
     <tr>
@@ -272,15 +272,15 @@ and the app shows a short help text for it.
     </tr>
     <tr>
         <td><kbd>F00</kbd></td>
-        <td>Circle Mode: the Granular filter draws circles instead of blocks (needs SLOT on).</td>
+        <td>Circle Mode: the Granular filter draws circles instead of blocks (works with SHOT or SLOT on).</td>
     </tr>
     <tr>
         <td><kbd>F01</kbd></td>
-        <td>Stroke Mode: the Granular filter draws strokes instead of filled blocks (needs SLOT on).</td>
+        <td>Stroke Mode: the Granular filter draws strokes instead of filled blocks (works with SHOT or SLOT on).</td>
     </tr>
     <tr>
         <td><kbd>F02</kbd></td>
-        <td>Vector Mode (PNG to SVG). Currently inert: it relied on a server-side converter that isn't part of this frontend.</td>
+        <td>Switches the OpenCV filter on and off (works with SHOT or SLOT on). Pick and tune the effect in the F02 slider panel. Greyed out when <code>readme.py</code> has no OpenCV.</td>
     </tr>
 </table>
 
@@ -320,7 +320,7 @@ handle to change its value.
     </tr>
     <tr>
         <td><kbd>F02</kbd></td>
-        <td>OpenCV filter, run by <code>readme.py</code> (needs OpenCV, see Installation). The first slider picks one of 6 effects: Invert, Edges, Stylization, Detail Enhance, Pencil Sketch, Cartoon. The next three tune it, the last one (Fade) blends back to the original. It is applied last, after the Creative and Granular filters, and only when you let go of a slider. Stylization is slow on big renders such as DOWNLOAD.</td>
+        <td>OpenCV filter, run by <code>readme.py</code> (needs OpenCV, see Installation). Switch it on with the F02 toggle in the top row. The first slider picks one of 6 effects: Invert, Edges, Stylization, Detail Enhance, Pencil Sketch, Cartoon. The next three tune it, the last one (Fade) blends back to the original. It is applied last, after the Creative and Granular filters, and only when you let go of a slider. Stylization is slow on big renders such as DOWNLOAD.</td>
     </tr>
 </table>
 
